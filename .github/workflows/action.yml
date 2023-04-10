@@ -23,14 +23,6 @@ on:
 #           RETRY_SLEEP: "300"
 #           MERGE_CONFLICT_ACTION: "fail"
 
-
-name: autoupdate
-on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - 'main'
 jobs:
   autoupdate:
     name: autoupdate
