@@ -5,3 +5,4 @@ Filha da branch master.
 
 Será que teremos netos ?
 Nasci, 🧒
+E tenho autoupdate.
