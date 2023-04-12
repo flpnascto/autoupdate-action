@@ -26,13 +26,13 @@ jobs:
           conflicts=$?
           if [ "$conflicts" -eq "1" ] ; then
             git merge --abort
-            echo "Merge with conflicts. Resolve and merge manually"
+            echo "❌ Merge with conflicts. Resolve and merge manually"
           else
             echo "Merge without conflicts"
             git merge --abort
             git merge main --no-edit -m "Merged by auto-update-rubric-pr-action"
             git push origin rubric
-            echo "Branch 'rubric' was updated successfully"
+            echo " ✅ Branch 'rubric' was updated successfully"
           fi
 
 # on:
