@@ -18,4 +18,4 @@ jobs:
           # the merged code and trigger CI actions
           token: ${{ secrets.GH_PAT }}
       - name: Fetch action
-        uses: betrybe/auto-update-pr-rubric-action
+        uses: betrybe/auto-update-pr-rubric-action@main
