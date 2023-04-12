@@ -20,8 +20,8 @@ jobs:
       - name: Fetch Update action
         uses: actions/checkout@v3
         with:
-          repository: betrybe/auto-update-pr-rubric-action@v1
-          ref: "main"
+          repository: betrybe/auto-update-pr-rubric-action
+          ref: v1
           path: .github/actions/update
       - name: Update branches
         uses: ./.github/actions/update
