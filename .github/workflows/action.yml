@@ -23,7 +23,7 @@ jobs:
           git config user.email github-actions@github.com
           git checkout rubric
           git merge --no-commit --no-ff main ||
-          conflicts: $?
+          conflicts=$?
           if [ "$conflicts" -eq "1" ] ; then
             git merge --abort
             echo "Merge with conflicts. Resolve and merge manually"
