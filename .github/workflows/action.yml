@@ -17,4 +17,5 @@ jobs:
           # use a personal access token to commit
           # the merged code and trigger CI actions
           token: ${{ secrets.GH_PAT }}
+      - name: Fetch action
         uses: betrybe/auto-update-pr-rubric-action
