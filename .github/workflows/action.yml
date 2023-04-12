@@ -22,10 +22,16 @@ jobs:
           git config user.name "Update branch"
           git config user.email github-actions@github.com
           git checkout rubric
-          git merge main --no-edit -m "Autoupdate action merge"
-      - name: Push the updated branch rubric
-        run: |
-          git push origin rubric
+          git merge --no-commit --no-ff main
+          if [ "$?" -eq "0" ] ; then
+            echo "Merge without conflicts"
+            git merge --abort
+            git merge main --no-edit -m "Merged by auto-update-rubric-pr-action"
+            git push origin rubric
+            echo "Branch 'rubric' was updated successfully"
+          else
+            echo "Merge with conflicts. Resolve and merge manually"
+          fi
 
 # on:
 #   pull_request:
