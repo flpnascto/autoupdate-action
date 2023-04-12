@@ -23,15 +23,16 @@ jobs:
           git config user.email github-actions@github.com
           git checkout rubric
           git merge --no-commit --no-ff main
-          if [ "$?" -eq "0" ] ; then
+          conflicts: $?
+          if [ "$conflicts" -eq "1" ] ; then
+            git merge --abort
+            echo "Merge with conflicts. Resolve and merge manually"
+          else
             echo "Merge without conflicts"
             git merge --abort
             git merge main --no-edit -m "Merged by auto-update-rubric-pr-action"
             git push origin rubric
             echo "Branch 'rubric' was updated successfully"
-          else
-            git merge --abort
-            echo "Merge with conflicts. Resolve and merge manually"
           fi
 
 # on:
