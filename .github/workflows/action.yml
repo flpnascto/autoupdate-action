@@ -1,42 +1,53 @@
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
-      - 'main'
+      - main
+
+jobs:
+  update:
+    name: Update Rubric
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+        with:
+          # check out all branches
+          fetch-depth: 0
+          # use a personal access token to commit
+          # the merged code and trigger CI actions
+          token: ${{ secrets.GH_PAT }}
+      - name: Update Git branch rubric
+        run: |
+          git config user.name "Update branch"
+          git config user.email github-actions@github.com
+          git checkout rubric
+          git merge main --no-edit -m "Autoupdate action merge"
+      - name: Push the updated branch rubric
+        run: |
+          git push origin rubric
+
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#     branches:
+#       - 'main'
 
 # jobs:
 #   autoupdate:
-#     if: github.event.pull_request.merged == true
 #     name: autoupdate
-#     runs-on: ubuntu-22.04
+#     runs-on: ubuntu-18.04
 #     steps:
-#       - uses: docker://chinthakagodawita/autoupdate-action:v1
+#       - uses: docker://chinthakagodawita/autoupdate:v1.7.0
 #         env:
 #           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-#           DRY_RUN: "false"
-#           # PR_FILTER: "labelled"
-#           # PR_LABELS: "autoupdate,keep up-to-date,integration"
-#           # EXCLUDED_LABELS: "dependencies,wontfix"
-#           MERGE_MSG: "Branch was auto-updated."
-#           RETRY_COUNT: "5"
-#           RETRY_SLEEP: "300"
-#           MERGE_CONFLICT_ACTION: "fail"
+#           PR_FILTER: "labelled"
+#           PR_LABELS: "autoupdate"
+#           MERGE_CONFLICT_ACTION: "ignore"
 
-jobs:
-  autoupdate:
-    name: autoupdate
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: docker://chinthakagodawita/autoupdate:v1.7.0
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          PR_FILTER: "labelled"
-          PR_LABELS: "autoupdate"
-          MERGE_CONFLICT_ACTION: "ignore"
+#       - run: echo 'Merge conflicts found!'
+#         if: ${{ steps.autoupdate.outputs.conflicted }}
 
-      - run: echo 'Merge conflicts found!'
-        if: ${{ steps.autoupdate.outputs.conflicted }}
-
-      - run: echo 'No merge conflicts'
-        if: ${{ !steps.autoupdate.outputs.conflicted }}
+#       - run: echo 'No merge conflicts'
+#         if: ${{ !steps.autoupdate.outputs.conflicted }}
