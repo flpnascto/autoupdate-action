@@ -30,6 +30,7 @@ jobs:
             git push origin rubric
             echo "Branch 'rubric' was updated successfully"
           else
+            git merge --abort
             echo "Merge with conflicts. Resolve and merge manually"
           fi
 
