@@ -17,5 +17,13 @@ jobs:
           # use a personal access token to commit
           # the merged code and trigger CI actions
           token: ${{ secrets.GH_PAT }}
-      - name: Fetch action
-        uses: betrybe/auto-update-pr-rubric-action@main
+      - name: Fetch Update action
+        uses: actions/checkout@v3
+        with:
+          repository: betrybe/auto-update-pr-rubric-action@main
+          path: .github/actions/update
+      - name: Update branches
+        uses: ./.github/actions/update
+      
+      
+
