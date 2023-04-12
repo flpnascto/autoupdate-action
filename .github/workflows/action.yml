@@ -25,6 +25,8 @@ jobs:
           path: .github/actions/update
       - name: Update branches
         uses: ./.github/actions/update
+        with:
+          token: ${{ secrets.GH_PAT }}
       
       
 
