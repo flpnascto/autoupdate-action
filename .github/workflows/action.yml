@@ -22,7 +22,7 @@ jobs:
           git config user.name "Update branch"
           git config user.email github-actions@github.com
           git checkout rubric
-          git merge --no-commit --no-ff main
+          git merge --no-commit --no-ff main ||
           conflicts: $?
           if [ "$conflicts" -eq "1" ] ; then
             git merge --abort
