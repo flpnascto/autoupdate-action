@@ -1,8 +1,3 @@
-# Neto
+# Olá Mundo
 
-Olá sou a branch `neto`.
-Filha da branch master.
-
-Será que teremos netos ?
-
-E tivemos, com muito amor 💚
+Eu sou a main
