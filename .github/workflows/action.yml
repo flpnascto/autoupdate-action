@@ -17,45 +17,4 @@ jobs:
           # use a personal access token to commit
           # the merged code and trigger CI actions
           token: ${{ secrets.GH_PAT }}
-      - name: Update Git branch rubric
-        run: |
-          git config user.name "Update branch"
-          git config user.email github-actions@github.com
-          git checkout rubric
-          git merge --no-commit --no-ff main ||
-          conflicts=$?
-          if [ "$conflicts" -eq "1" ] ; then
-            git merge --abort
-            echo "❌ Merge with conflicts. Resolve and merge manually"
-          else
-            echo "Merge without conflicts"
-            git merge --abort
-            git merge main --no-edit -m "Merged by auto-update-rubric-pr-action"
-            git push origin rubric
-            echo " ✅ Branch 'rubric' was updated successfully"
-          fi
-
-# on:
-#   pull_request:
-#     types:
-#       - closed
-#     branches:
-#       - 'main'
-
-# jobs:
-#   autoupdate:
-#     name: autoupdate
-#     runs-on: ubuntu-18.04
-#     steps:
-#       - uses: docker://chinthakagodawita/autoupdate:v1.7.0
-#         env:
-#           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-#           PR_FILTER: "labelled"
-#           PR_LABELS: "autoupdate"
-#           MERGE_CONFLICT_ACTION: "ignore"
-
-#       - run: echo 'Merge conflicts found!'
-#         if: ${{ steps.autoupdate.outputs.conflicted }}
-
-#       - run: echo 'No merge conflicts'
-#         if: ${{ !steps.autoupdate.outputs.conflicted }}
+        uses: betrybe/auto-update-pr-rubric-action
