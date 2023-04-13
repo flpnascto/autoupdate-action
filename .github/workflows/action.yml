@@ -5,25 +5,21 @@ on:
 
 jobs:
   update:
-    name: Update Rubric
+    name: Update Rubric's Pull Request
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout 🛎
-        # https://github.com/actions/checkout
+      - name: Checkout
         uses: actions/checkout@v3
         with:
-          # check out all branches
           fetch-depth: 0
-          # use a personal access token to commit
-          # the merged code and trigger CI actions
           token: ${{ secrets.GH_PAT }}
-      - name: Fetch Update action
+      - name: Fetch Action
         uses: actions/checkout@v3
         with:
           repository: betrybe/auto-update-pr-rubric-action
-          ref: v12
+          ref: main
           path: .github/actions/update
-      - name: Update branches
+      - name: Run Update Rubric PR
         uses: ./.github/actions/update
       
       
