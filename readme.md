@@ -2,4 +2,4 @@
 
 Nasci de novo
 
-Estou quase pronto.
+Estou finalizado.
